@@ -34,6 +34,9 @@ Next 10
 BE >
 Prisma => planetScale DB (SQL)
 
+Auth >
+Clerk.dev
+
 Prisma Commands:
 npx prisma studio (open db explorer in browser)
 npx prisma db push (syncs prisma schema with db)

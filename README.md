@@ -1,3 +1,25 @@
+Stack >
+FE >
+Next 10
+
+BE >
+TRPC (backend router that includes types)
+Prisma => planetScale DB (SQL)
+
+Auth >
+Clerk.dev
+
+Logging >
+Axiom
+
+Reference >
+https://www.youtube.com/watch?v=YkOSUVzOAA4
+
+Prisma Commands:
+npx prisma studio (open db explorer in browser)
+npx prisma db push (syncs prisma schema with db)
+npx prisma db generate (updates typescript for new schema - npm install also accomplishes this)
+
 # Create T3 App
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
@@ -26,17 +48,3 @@ You can check out the [create-t3-app GitHub repository](https://github.com/t3-os
 ## How do I deploy this?
 
 Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
-
-Stack >
-FE >
-Next 10
-
-BE >
-Prisma => planetScale DB (SQL)
-
-Auth >
-Clerk.dev
-
-Prisma Commands:
-npx prisma studio (open db explorer in browser)
-npx prisma db push (syncs prisma schema with db)

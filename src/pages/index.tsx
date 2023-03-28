@@ -1,8 +1,9 @@
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import Head from "next/head";
+import { number } from "zod";
 
-import { api } from "~/utils/api";
+import { api, RouterOutputs } from "~/utils/api";
 
 const CreatePostWizard = () => {
   const { user } = useUser();
@@ -22,6 +23,20 @@ const CreatePostWizard = () => {
         placeholder="Type some emojis!"
         className="grow bg-transparent outline-none"
       />
+    </div>
+  );
+};
+
+// tRPC trick for fetching type from the router output function
+type PostWithUser = RouterOutputs["posts"]["getAll"][number];
+
+const PostView = (props: PostWithUser) => {
+  const { post, author } = props;
+
+  return (
+    <div key={post.id} className="border-b border-slate-400 p-8">
+      {author?.username}
+      {post.content}
     </div>
   );
 };
@@ -53,11 +68,9 @@ const Home: NextPage = () => {
           </div>
 
           <div className="flex flex-col">
-            {data.map((post) => (
-              <div key={post.post.id} className="border-b border-slate-400 p-8">
-                {post.author?.username}
-                {post.post.content}
-              </div>
+            {data.map((fullPost) => (
+              // direct prop dump, cool
+              <PostView {...fullPost} key={fullPost.post.id} />
             ))}
           </div>
         </div>

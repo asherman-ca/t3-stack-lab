@@ -57,7 +57,7 @@ const PostView = (props: PostWithUser) => {
             post.createdAt
           ).fromNow()}`}</span>
         </div>
-        <span>{post.content}</span>
+        <span className="text-xl">{post.content}</span>
       </div>
     </div>
   );
@@ -81,6 +81,9 @@ const Feed = () => {
 
 const Home: NextPage = () => {
   const { isLoaded: userLoaded, isSignedIn } = useUser();
+
+  // start fetching ASAP (react query will handle the nitty gritty)
+  api.posts.getAll.useQuery();
 
   if (!userLoaded) return <LoadingPage />;
 

@@ -35,7 +35,7 @@ const PostView = (props: PostWithUser) => {
 
   return (
     <div key={post.id} className="border-b border-slate-400 p-8">
-      {author?.username}
+      {author.username}
       {post.content}
     </div>
   );

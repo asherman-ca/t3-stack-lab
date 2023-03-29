@@ -6,6 +6,9 @@ BE >
 TRPC (backend router that includes types)
 Prisma => planetScale DB (SQL)
 
+Ratelimiting >
+Upstash
+
 Auth >
 Clerk.dev
 

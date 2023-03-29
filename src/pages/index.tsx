@@ -24,7 +24,8 @@ const CreatePostWizard = () => {
   const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
     onSuccess: () => {
       setInput("");
-      ctx.posts.getAll.invalidate();
+      // void tells typescript not to care about the synchronisity of this action
+      void ctx.posts.getAll.invalidate();
     },
   });
 

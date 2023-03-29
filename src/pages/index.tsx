@@ -11,6 +11,7 @@ import { api } from "~/utils/api";
 import type { RouterOutputs } from "~/utils/api";
 import Image from "next/image";
 import { LoadingPage } from "~/components/loading";
+import { toast } from "react-hot-toast";
 
 const CreatePostWizard = () => {
   const { user } = useUser();
@@ -26,6 +27,14 @@ const CreatePostWizard = () => {
       setInput("");
       // void tells typescript not to care about the synchronisity of this action
       void ctx.posts.getAll.invalidate();
+    },
+    onError: (e) => {
+      const errorMessage = e.data?.zodError?.fieldErrors.content;
+      if (errorMessage && errorMessage[0]) {
+        toast.error(errorMessage[0]);
+      } else {
+        toast.error("Failed to post. Invalid post or frequency error");
+      }
     },
   });
 

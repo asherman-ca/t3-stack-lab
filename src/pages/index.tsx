@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { SignInButton, SignOutButton, useUser } from "@clerk/nextjs";
 import { type NextPage } from "next";
 import Head from "next/head";
@@ -13,6 +14,11 @@ import { LoadingPage } from "~/components/loading";
 
 const CreatePostWizard = () => {
   const { user } = useUser();
+
+  // we don't need to do useState<string>('') because we're passing in a string which makes the type known
+  const [input, setInput] = useState("");
+
+  const { mutate } = api.posts.create.useMutation();
 
   if (!user) return null;
 
@@ -30,7 +36,11 @@ const CreatePostWizard = () => {
       <input
         placeholder="Type some emojis!"
         className="grow bg-transparent outline-none"
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
       />
+      <button onClick={() => mutate({ content: input })}>Post</button>
     </div>
   );
 };

@@ -18,7 +18,15 @@ const CreatePostWizard = () => {
   // we don't need to do useState<string>('') because we're passing in a string which makes the type known
   const [input, setInput] = useState("");
 
-  const { mutate } = api.posts.create.useMutation();
+  // grab context of entire trpc cache
+  const ctx = api.useContext();
+
+  const { mutate, isLoading: isPosting } = api.posts.create.useMutation({
+    onSuccess: () => {
+      setInput("");
+      ctx.posts.getAll.invalidate();
+    },
+  });
 
   if (!user) return null;
 
@@ -35,10 +43,11 @@ const CreatePostWizard = () => {
       />
       <input
         placeholder="Type some emojis!"
-        className="grow bg-transparent outline-none"
+        className="grow bg-transparent outline-none disabled:opacity-50"
         type="text"
         value={input}
         onChange={(e) => setInput(e.target.value)}
+        disabled={isPosting}
       />
       <button onClick={() => mutate({ content: input })}>Post</button>
     </div>

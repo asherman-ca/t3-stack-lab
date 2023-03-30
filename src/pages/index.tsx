@@ -10,7 +10,7 @@ dayjs.extend(relativeTime);
 import { api } from "~/utils/api";
 import type { RouterOutputs } from "~/utils/api";
 import Image from "next/image";
-import { LoadingPage } from "~/components/loading";
+import { LoadingPage, LoadingSpinner } from "~/components/loading";
 import { toast } from "react-hot-toast";
 
 const CreatePostWizard = () => {
@@ -58,8 +58,26 @@ const CreatePostWizard = () => {
         value={input}
         onChange={(e) => setInput(e.target.value)}
         disabled={isPosting}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            mutate({ content: input });
+          }
+        }}
       />
-      <button onClick={() => mutate({ content: input })}>Post</button>
+      {input !== "" && !isPosting && (
+        <button
+          className="disabled:opacity-50"
+          onClick={() => mutate({ content: input })}
+        >
+          Post
+        </button>
+      )}
+      {isPosting && (
+        <div className="flex items-center justify-center">
+          <LoadingSpinner size={20} />
+        </div>
+      )}
     </div>
   );
 };

@@ -54,6 +54,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   };
 };
 
+// paths will generate as they're called at request time
 export const getStaticPaths = () => {
   return {
     paths: [],

@@ -23,6 +23,9 @@ npx prisma studio (open db explorer in browser)
 npx prisma db push (syncs prisma schema with db)
 npx prisma db generate (updates typescript for new schema - npm install also accomplishes this)
 
+Refactor Notes:
+use react hook form in the future so you dont rerender everything as your filling out input component
+
 # Create T3 App
 
 This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.

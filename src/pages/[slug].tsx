@@ -1,27 +1,28 @@
-import { GetStaticProps, type NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { LoadingPage } from "~/components/loading";
 import { api } from "~/utils/api";
+import { PageLayout } from "~/components/layout";
 
-const ProfilePage: NextPage = () => {
+const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   const { data, isLoading } = api.profile.getUserByUsername.useQuery({
-    username: "asherman-ca",
+    username,
   });
 
-  if (isLoading) {
-    console.log("profile loading");
-    return <LoadingPage />;
-  }
+  // because the props are loading statically there is no more clientside loading state
+  // if (isLoading) {
+  //   return <LoadingPage />;
+  // }
   if (!data) return <div>404</div>;
 
   return (
     <>
       <Head>
-        <title>Profile</title>
+        <title>{data.username}</title>
       </Head>
-      <main className="flex h-screen justify-center">
+      <PageLayout>
         <div>Profile View</div>
-      </main>
+      </PageLayout>
     </>
   );
 };
@@ -50,6 +51,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   return {
     props: {
       trpcState: ssg.dehydrate(),
+      username,
     },
   };
 };

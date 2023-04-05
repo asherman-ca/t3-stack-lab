@@ -17,6 +17,7 @@ Axiom
 
 Reference >
 https://www.youtube.com/watch?v=YkOSUVzOAA4
+https://github.com/t3dotgg/chirp
 
 Prisma Commands:
 npx prisma studio (open db explorer in browser)

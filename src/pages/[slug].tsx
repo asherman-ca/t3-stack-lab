@@ -35,6 +35,8 @@ const ProfilePage: NextPage<{ username: string }> = ({ username }) => {
   // }
   if (!data) return <div>404</div>;
 
+  console.log("USERNAME", username);
+
   return (
     <>
       <Head>

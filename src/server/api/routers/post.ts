@@ -51,6 +51,18 @@ const addUserDataToPosts = async (posts: Post[]) => {
 };
 
 export const postsRouter = createTRPCRouter({
+  getById: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const post = await ctx.prisma.post.findUnique({
+        where: { id: input.id },
+      });
+
+      if (!post) throw new TRPCError({ code: "NOT_FOUND" });
+
+      return (await addUserDataToPosts([post]))[0];
+    }),
+
   getAll: publicProcedure.query(async ({ ctx }) => {
     const posts = await ctx.prisma.post.findMany({
       take: 100,
@@ -61,29 +73,6 @@ export const postsRouter = createTRPCRouter({
       ],
     });
     return addUserDataToPosts(posts);
-    // const users = (
-    //   await clerkClient.users.getUserList({
-    //     userId: posts.map((post) => post.authorID),
-    //     limit: 100,
-    //   })
-    // ).map(filterUserForCleint);
-    // return posts.map((post) => {
-    //   const author = users.find((user) => user.id === post.authorID);
-    //   if (!author || !author.username)
-    //     throw new TRPCError({
-    //       code: "INTERNAL_SERVER_ERROR",
-    //       message: "Author for post not found",
-    //     });
-
-    //   return {
-    //     post,
-    //     author: {
-    //       ...author,
-    //       username: author.username,
-    //     },
-    //   };
-    // });
-    // return addUserDataToPosts(posts);
   }),
 
   getPostsByUserId: publicProcedure

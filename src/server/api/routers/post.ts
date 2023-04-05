@@ -60,6 +60,7 @@ export const postsRouter = createTRPCRouter({
         },
       ],
     });
+    return addUserDataToPosts(posts);
     // const users = (
     //   await clerkClient.users.getUserList({
     //     userId: posts.map((post) => post.authorID),
@@ -82,7 +83,7 @@ export const postsRouter = createTRPCRouter({
     //     },
     //   };
     // });
-    return addUserDataToPosts(posts);
+    // return addUserDataToPosts(posts);
   }),
 
   getPostsByUserId: publicProcedure
@@ -99,7 +100,6 @@ export const postsRouter = createTRPCRouter({
           authorID: input.userId,
         },
       });
-
       return addUserDataToPosts(posts);
     }),
 

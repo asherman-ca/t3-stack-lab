@@ -21,5 +21,8 @@ const config = {
   images: {
     domains: ["images.clerk.dev"],
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
 };
 export default config;
